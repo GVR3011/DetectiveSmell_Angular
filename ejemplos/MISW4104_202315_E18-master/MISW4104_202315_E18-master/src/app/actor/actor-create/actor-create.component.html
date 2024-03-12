@@ -1,0 +1,141 @@
+<form
+  [formGroup]="actorForm"
+  (ngSubmit)="!actorForm.invalid && createActor(actorForm.value)"
+>
+  <div class="form-group mx-sm-4 mb-2">
+    <label i18n-  for="id">ID</label>
+    <input
+      id="id"
+      formControlName="id"
+      type="text"
+      pInputText
+      placeholder="ID"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        actorForm.get('id')!.hasError('required') &&
+        actorForm.get('id')!.touched
+      "
+    >
+    {{ "actor.idRequired" | translate }}
+    </div>
+    <div   *ngIf="actorForm.get('id')!.hasError('minlength')">
+      {{ "actor.must32Digits" | translate }}
+    </div>
+    <label    for="name">{{ "actor.name" | translate }}</label>
+    <input 
+      id="name"
+      formControlName="name"
+      type="text"
+      pInputText
+      placeholder="Nombre del Actor"
+      class="form-control"
+    />
+    <div  
+      *ngIf="
+        actorForm.get('name')!.hasError('required') &&
+        actorForm.get('name')!.touched
+      "
+    >
+    {{ "actor.nameRequired" | translate }}
+    </div>
+    <div i18n-  *ngIf="actorForm.get('name')!.hasError('minlength')">
+      {{ "actor.must2digits" | translate }}
+    </div>
+
+    <label i18n-  for="photo">{{ "actor.photo" | translate }}</label>
+    <input i18n- 
+      id="photo"
+      formControlName="photo"
+      type="text"
+      pInputText
+      placeholder="URL with Author's image"
+      class="form-control"
+    />
+    <div 
+      *ngIf="
+        actorForm.get('photo')!.hasError('required') &&
+        actorForm.get('photo')!.touched
+      "
+    >
+    {{ "actor.posterRequired" | translate }}
+    </div>
+
+    <label   for="nationality">{{ "actor.nacionality" | translate }}</label>
+    <input 
+      id="nationality"
+      formControlName="nationality"
+      type="text"
+      pInputText
+      placeholder="Ingrese la Nacionalidad"
+      class="form-control"
+    />
+    <div i18n- 
+      *ngIf="
+        actorForm.get('nationality')!.hasError('required') &&
+        actorForm.get('nationality')!.touched
+      "
+    >
+    {{ "actor.nacionalityRequired" | translate }}
+    </div>
+    <div  i18n-  *ngIf="actorForm.get('nationality')!.hasError('minlength')">
+      {{ "actor.must2Digits" | translate }}
+    </div>
+    <label for="birthDate">{{ "actor.birthDate" | translate }}</label>
+    <input i18n- 
+      id="birthDate"
+      formControlName="birthDate"
+      type="text"
+      pInputText
+      placeholder="birthDate"
+      class="form-control"
+    />
+    <div  
+      *ngIf="
+        actorForm.get('birthDate')!.hasError('required') &&
+        actorForm.get('birthDate')!.touched
+      "
+    >
+    {{ "actor.birthDateRequired" | translate }}
+    </div>
+    <div   *ngIf="actorForm.get('birthDate')!.hasError('minlength')">
+      {{ "actor.must3Digits" | translate }}
+    </div>
+    
+    <label  for="biography">{{ "actor.biography" | translate }}</label>
+    <input 
+      id="biography"
+      formControlName="biography"
+      type="string"
+      pInputText
+      placeholder="biography hasta 200 caracteres "
+      class="form-control"
+    />
+    <div i18n- 
+      *ngIf="
+        actorForm.get('biography')!.hasError('required') &&
+        actorForm.get('biography')!.touched
+      "
+    >
+    {{ "actor.biographyRequired" | translate }}
+    </div>
+    <div i18n-  *ngIf="actorForm.get('biography')!.hasError('maxlength')">
+      {{ "actor.biographyContain" | translate }}
+    </div>
+
+ 
+  </div>
+  <div>
+    <button i18n- 
+      type="button"
+      (click)="cancelCreation()"
+      class="btn btn-danger ml-3"
+    >
+    {{ "actor.cancel" | translate }}
+    </button>
+    <button i18n-  type="submit" [disabled]="!actorForm.valid" class="btn btn-primary">
+      {{ "actor.save" | translate }}
+    </button>
+  </div>
+</form>

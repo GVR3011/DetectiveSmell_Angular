@@ -1,0 +1,46 @@
+<form
+  [formGroup]="movieForm"
+  (ngSubmit)="!movieForm.invalid && createMovieAsociacionActor(movieForm.value)"
+>
+  <div class="form-group mx-sm-4 mb-2">
+    <div *ngIf="selectedMovie">
+    <dt >{{ "movie.name" | translate }}</dt>
+    <dd> {{selectedMovie.title}} </dd>
+    <hr>
+    <label  for="actor">{{ "movie.actors" | translate }}</label>
+    <p-dropdown 
+    ariaLabel="Seleccione Actor"
+    id="actor"
+    class="form-control"
+    formControlName="actors"
+    [options]="actores"
+    placeholder="{{'primeng.matchAny' | translate}}"
+    >
+  <ng-template let-actor pTemplate="selectedItem"> 
+    {{actor.name}} 
+  </ng-template> 
+  <ng-template let-item pTemplate="item"> 
+    {{item.name}}
+  </ng-template>
+</p-dropdown>
+    <div  style="color: red;"
+      *ngIf="
+        movieForm.get('actors')!.hasError('required') &&
+        movieForm.get('actors')!.touched
+      "
+    >
+    {{ "movie.actorRequired" | translate }}
+    </div>
+    <button 
+      type="button"
+      (click)="cancelCreation()"
+      class="btn btn-danger ml-3"
+    >
+    {{ "primeng.cancel" | translate }}
+    </button>
+    <button   type="submit" [disabled]="!movieForm.valid" class="btn btn-primary">
+      {{ "primeng.save" | translate }}
+    </button>
+    </div>    
+  </div>
+</form>

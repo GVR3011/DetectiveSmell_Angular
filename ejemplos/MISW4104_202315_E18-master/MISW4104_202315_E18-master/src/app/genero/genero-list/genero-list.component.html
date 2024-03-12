@@ -1,0 +1,64 @@
+<div >
+  <p-table
+     
+      [value]="genres"
+      [paginator]="true"
+      [rows]="5"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[5, 10, 25, 50]"
+      selectionMode="single"
+      dataKey="id"
+      [(selection)]="selectedGenero1"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th   class="border-info table-bordered border">{{ 'genre.type'| translate }}</th>
+        <th  class="border-info table-bordered border">{{ 'demo.actions'| translate }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-genero>
+      <tr [pSelectableRow]="genero">
+        <td class="border-info table-bordered border">{{ genero.type}}</td>
+        <td class="border-info table-bordered border">
+
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-button 
+
+  [rounded]="true"
+  [outlined]="true"
+  (click)="showDialog()"
+  class="button-sup"
+>{{ 'demo.create'| translate }}</p-button>
+</div>
+
+<div *ngIf="selectedGenero1">
+  <hr>
+      <dd class="caption" *ngFor="let movie of selectedGenero1.movies">
+        <p-card header="{{ movie.title }}" class="card" >
+          <hr />
+          <dd class="caption"><p-image src="{{ movie.poster }}" /></dd>
+          <hr />
+          <dl>
+            <dt  >{{ 'movie.duration'| translate }}</dt>
+            <dd >{{ movie.duration }}</dd>
+            <dt  >{{ 'movie.country'| translate }}</dt>
+            <dd >{{ movie.country }}</dd>
+            <dt >{{ 'movie.premierDate'| translate }}</dt>
+            <dd>{{ movie.releaseDate }}</dd>
+            
+          </dl>
+        </p-card>
+      </dd>
+
+</div>
+<p-dialog
+  header="Crear Genero"
+  [style]="{ width: '20vw' }"
+  [(visible)]="visible">
+  <app-genero-create></app-genero-create>
+  
+</p-dialog>

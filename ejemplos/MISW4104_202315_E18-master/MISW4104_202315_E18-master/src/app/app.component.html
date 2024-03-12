@@ -1,0 +1,134 @@
+<div class="container">
+  <div class="col-12">
+    <div class="row d-flex justify-content-between">
+      <div class="col-12 col-md-3 div-img" tabIndex="0">
+        <img
+          src="../assets/logotipo.jpg"
+          alt="Logo Arte"
+          aria-label="Logo Arte"
+        />
+      </div>
+      <div class="col-12 col-md-6 div-title">
+        <h1
+          class="title"
+          tabIndex="1"
+          [ngStyle]="{
+            color: selectedTheme.id === 'lara-light-blue' ? 'black' : 'white'
+          }"
+        >
+          THE MOVIE ART
+        </h1>
+      </div>
+      <div
+        class="col-12 col-md-6 div-boton"
+        style="text-align: right"
+        tabIndex="2"
+      >
+        <i
+          class="fa-regular fa-eye border border-info"
+          [ngStyle]="{
+            color: selectedTheme.id === 'lara-light-blue' ? 'black' : 'white'
+          }"
+          (click)="showDialog()"
+          icon="pi pi-info-circle"
+          label="Show"
+        ></i>
+      </div>
+   
+    
+    </div>
+    <div class="col-12 col-md-3">
+
+      <div
+      *ngIf="lenguaje==='es'" >
+      <p-tabMenu
+        class="p-tabmenu.p-tabmenu-nav"
+        [model]="items"
+        [activeItem]="items[0]"
+        [ngStyle]="{
+          color: selectedTheme.id === 'lara-light-blue' ? 'black' : 'white'
+        }"
+        tabIndex="3"
+      >
+      </p-tabMenu>
+      </div>
+      <div *ngIf="lenguaje==='en'" >
+      <p-tabMenu
+        class="p-tabmenu.p-tabmenu-nav"
+        [model]="itemsIngles"
+        [activeItem]="items[0]"
+        [ngStyle]="{
+          color: selectedTheme.id === 'lara-light-blue' ? 'black' : 'white'
+        }"
+        tabIndex="3"
+      >
+      </p-tabMenu>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  header="{{ 'demo.accessibility'| translate }}"
+  [(visible)]="display"
+  [modal]="true"
+  [style]="{ width: '20rem', height: '20rem' }"
+  aria-label="Opciones de Accesibilidad"
+>
+  <div>
+    <p-dropdown
+      ariaLabel="Cambiar contraste"
+      id="CambioTema"
+      [options]="themes"
+      [(ngModel)]="selectedTheme"
+      (onChange)="changeTheme(selectedTheme.id)"
+      [tabindex]="1"
+    ></p-dropdown>
+  </div>
+  <label>Cambiar Tamaño </label>
+  <div>
+    <button
+      (click)="cambiarTamanoFuente('+')"
+      id="font-up"
+      aria-label="Aumentar tamaño"
+    >
+      A<sup>+</sup>
+    </button>
+    <button
+      (click)="cambiarTamanoFuente('-')"
+      id="font-down"
+      aria-label="Reducir tamaño"
+    >
+      A<sup>-</sup>
+    </button>
+  </div>
+  <div class="p-d-flex p-ai-center p-jc-between p-mt-3">
+    <div class="p-col-6">
+      <h2 class="p-ml-3">{{ "demo.ActualLang" | translate }}</h2>
+    </div>
+    <div class="p-d-flex p-col-6 p-jc-end">
+      <div class="p-mr-3">
+        <p-radioButton
+          (ngModelChange)="changeLang($event)"
+          name="language"
+          value="es"
+          [(ngModel)]="lang"
+          inputId="es"
+        ></p-radioButton>
+        <label class="p-ml-1" for="es">{{ "demo.es" | translate }}</label>
+      </div>
+      <div class="p-mr-3">
+        <p-radioButton
+          (ngModelChange)="changeLang($event)"
+          name="language"
+          value="en"
+          [(ngModel)]="lang"
+          inputId="en"
+        ></p-radioButton>
+        <label class="p-ml-1" for="en">{{ "demo.en" | translate }}</label>
+      </div>
+      
+    </div>
+  </div>
+</p-dialog>

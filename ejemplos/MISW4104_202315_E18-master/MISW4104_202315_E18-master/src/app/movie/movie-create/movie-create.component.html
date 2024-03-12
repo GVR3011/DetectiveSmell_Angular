@@ -1,0 +1,266 @@
+<form
+  [formGroup]="movieForm"
+  (ngSubmit)="!movieForm.invalid && createMovie(movieForm.value)"
+>
+  <div class="form-group mx-sm-4 mb-2">
+    <label for="id">{{ "movie.id" | translate }}</label>
+    <input
+      id="id"
+      formControlName="id"
+      type="text"
+      pInputText
+      class="form-control"
+    />
+    <div
+    style="color: red;"
+      *ngIf="
+        movieForm.get('id')!.hasError('required') &&
+        movieForm.get('id')!.touched
+      "
+    >
+    {{ "movie.idRequired" | translate }}
+    </div>
+    <div  *ngIf="movieForm.get('id')!.hasError('minlength')">
+      {{ "movie.idRequired" | translate }} {{ "movie.size" | translate }} :32
+    </div>
+    <label  for="title">{{ "movie.title" | translate }}</label>
+    <input
+   
+      id="title"
+      formControlName="title"
+      type="text"
+      pInputText
+      class="form-control"
+    />
+    <div
+    style="color: red;"
+      *ngIf="
+        movieForm.get('title')!.hasError('required') &&
+        movieForm.get('title')!.touched
+      "
+    >
+    {{ "movie.titleRequired" | translate }}
+    </div>
+    <div  *ngIf="movieForm.get('title')!.hasError('minlength')">
+      {{ "movie.titleRequired" | translate }} {{ "movie.size" | translate }} :2
+    </div>
+
+    <label for="poster">{{ "movie.poster" | translate }}</label>
+    <input
+      id="poster"
+      formControlName="poster"
+      type="text"
+      pInputText
+      class="form-control"
+    />
+    <div
+    style="color: red;"
+      *ngIf="
+        movieForm.get('poster')!.hasError('required') &&
+        movieForm.get('poster')!.touched
+      "
+    >
+    {{ "movie.posterRequired" | translate }}
+    </div>
+
+    <label for="duration">{{ "movie.duration" | translate }}</label>
+    <input
+
+      id="duration"
+      formControlName="duration"
+      type="number"
+      pInputText
+      class="form-control"
+    />
+    <div
+    style="color: red;"
+      *ngIf="
+        movieForm.get('duration')!.hasError('required') &&
+        movieForm.get('duration')!.touched
+      "
+    >
+    {{ "movie.durationRequired" | translate }}
+    </div>
+    <div  *ngIf="movieForm.get('duration')!.hasError('minlength')">
+      {{ "movie.durationRequired" | translate }} {{ "movie.size" | translate }} :2
+    </div>
+    <label for="country">{{ "movie.country" | translate }}</label>
+    <input
+      id="country"
+      formControlName="country"
+      type="text"
+      pInputText
+      class="form-control"
+    />
+    <div
+    style="color: red;"
+      *ngIf="
+        movieForm.get('country')!.hasError('required') &&
+        movieForm.get('country')!.touched
+      "
+    >
+    {{ "movie.countryRequired" | translate }}
+    </div>
+    <div  *ngIf="movieForm.get('country')!.hasError('minlength')">
+      {{ "movie.countryRequired" | translate }} {{ "movie.size" | translate }} :3 
+    </div>
+    <label  for="releaseDate">{{ "movie.premierDate" | translate }}</label>
+    <input
+   
+      id="releaseDate"
+      formControlName="releaseDate"
+      type="text"
+      pInputText
+      class="form-control"
+    />
+    <div
+    style="color: red;"
+      *ngIf="
+        movieForm.get('releaseDate')!.hasError('required') &&
+        movieForm.get('releaseDate')!.touched
+      "
+    >
+    {{ "movie.releaseDateRequired" | translate }}
+    </div>
+    <label for="popularity">{{ "movie.popularity" | translate }}</label>
+    <input
+
+      id="popularity"
+      formControlName="popularity"
+      type="number"
+      pInputText
+      class="form-control"
+    />
+    <div
+    style="color: red;"
+      *ngIf="
+        movieForm.get('popularity')!.hasError('required') &&
+        movieForm.get('popularity')!.touched
+      "
+    >
+    {{ "movie.popularityRequired" | translate }}
+    </div>
+    <div *ngIf="movieForm.get('popularity')!.hasError('maxlength')">
+      {{ "movie.countryRequired" | translate }} 0-9 
+    </div>
+
+    <label for="genre">{{ "movie.genre" | translate }}</label>
+    <p-dropdown
+      ariaLabel="Seleccione Genero"
+      id="genre"
+      class="form-control"
+      formControlName="genre"
+      placeholder="{{'movie.genreSelect' | translate}}"
+      [options]="generos"
+    >
+      <ng-template let-genero pTemplate="selectedItem">
+        {{ genero.type }}
+      </ng-template>
+      <ng-template let-item pTemplate="item">
+        {{ item.type }}
+      </ng-template>
+    </p-dropdown>
+    <div
+    style="color: red;"
+      *ngIf="
+        movieForm.get('genre')!.hasError('required') &&
+        movieForm.get('genre')!.touched
+      "
+    >
+    {{ "movie.genreRequired" | translate }}
+    </div>
+    <label  for="director">{{ "movie.directors" | translate }}</label>
+    <p-dropdown
+    
+      ariaLabel="Seleccione Director"
+      id="director"
+      class="form-control"
+      formControlName="director"
+      placeholder="{{ 'movie.directorSelect' | translate }}"
+      [options]="directores"
+    >
+      <ng-template let-director pTemplate="selectedItem">
+        {{ director.name }}
+      </ng-template>
+      <ng-template let-item pTemplate="item">
+        {{ item.name }}
+      </ng-template>
+    </p-dropdown>
+
+    <div style="color: red;"
+    
+      *ngIf="
+        movieForm.get('director')!.hasError('required') &&
+        movieForm.get('director')!.touched
+      "
+    >
+    {{ "movie.directorRequired" | translate }}
+    </div>
+
+    <label for="actor">{{ "movie.actors" | translate }}</label>
+    <p-dropdown
+
+      ariaLabel="Seleccione Actor"
+      id="actor"
+      class="form-control"
+      formControlName="actor"
+      placeholder="{{'movie.actorSelect' | translate}}"
+      [options]="actores"
+    >
+      <ng-template let-actor pTemplate="selectedItem">
+        {{ actor.name }}
+      </ng-template>
+      <ng-template let-item pTemplate="item">
+        {{ item.name }}
+      </ng-template>
+    </p-dropdown>
+    <div style="color: red;"
+      *ngIf="
+        movieForm.get('actor')!.hasError('required') &&
+        movieForm.get('actor')!.touched
+      "
+    >
+    {{ "movie.actorRequired" | translate }}
+    </div>
+    <label for="youtubeTrailer">{{ "movie.trailer" | translate }}</label>
+    <p-dropdown
+      ariaLabel="Seleccione Actor"
+      id="youtubeTrailer"
+      class="form-control"
+      formControlName="youtubeTrailer"
+      [options]="trailers"
+    >
+      <ng-template let-trailer pTemplate="selectedItem">
+        {{ trailer.name }}
+      </ng-template>
+      <ng-template let-item pTemplate="item">
+        {{ item.name }}
+      </ng-template>
+    </p-dropdown>
+    <div
+    style="color: red;"
+      *ngIf="
+        movieForm.get('youtubeTrailer')!.hasError('required') &&
+        movieForm.get('youtubeTrailer')!.touched
+      "
+    >
+    {{ "movie.trailerRequired" | translate }}
+    </div>
+  </div>
+  <div>
+    <button
+      type="button"
+      (click)="cancelCreation()"
+      class="btn btn-danger ml-3"
+    > 
+      {{ "primeng.cancel" | translate }}
+    </button>
+    <button
+      type="submit"
+      [disabled]="!movieForm.valid"
+      class="btn btn-primary"
+    >
+      {{ "primeng.save" | translate }}
+    </button>
+  </div>
+</form>

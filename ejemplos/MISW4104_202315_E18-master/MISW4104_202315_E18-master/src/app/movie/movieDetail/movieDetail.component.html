@@ -1,0 +1,88 @@
+<div>
+  <p-table
+   
+    [value]="movies"
+    [paginator]="true"
+    [rows]="5"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[5, 10, 25, 50]"
+    selectionMode="single"
+    dataKey="id"
+    [(selection)]="selectedMovie1"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th   class="border-info table-bordered border">{{ 'movie.title'| translate }}</th>
+        <th   class="border-info table-bordered border">{{ 'demo.actions'| translate }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-movie>
+      <tr [pSelectableRow]="movie">
+        <td class="border-info table-bordered border">{{ movie.title }}</td>
+        <td class="border-info table-bordered border">
+          <p-button  
+          [rounded]="true"
+          [outlined]="true"
+          class="btn"
+          (click)="showDialogx(movie)"
+        >{{ 'movie.associateActor'| translate }}</p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-button
+
+  [rounded]="true"
+  [outlined]="true"
+  (click)="showDialog()"
+  class="button-sup"
+   
+>{{ 'demo.create'| translate }}</p-button>
+</div>
+<div *ngIf="selectedMovie1">
+  <hr>
+  <p-card header="{{ selectedMovie1.title }}" class="card">
+    <hr />
+    <dd class="caption"><p-image src="{{ selectedMovie1.poster }}" /></dd>
+    <hr />
+
+    <dl>
+      <dt  >{{ 'movie.duration'| translate }}</dt>
+      <dd>{{ selectedMovie1.duration }}</dd>
+      <dt  >{{ 'movie.country'| translate }}</dt>
+      <dd>{{ selectedMovie1.country }}</dd>
+      <dt  class="bold">{{ 'movie.genre'| translate }}</dt>
+      <dd>{{ selectedMovie1.genre.type }}</dd>
+      <dt   class="bold">{{ 'movie.premierDate'| translate }}</dt>
+      <dd>{{ selectedMovie1.releaseDate }}</dd>
+      <dt  class="bold">{{ 'movie.director'| translate }}</dt>
+      <p-image src="{{ selectedMovie1.director.photo }}" />
+      <dd>{{ selectedMovie1.director.name }}</dd>
+      <dt class="bold">{{ 'movie.trailer'| translate }}</dt>
+      <dd>{{ selectedMovie1.youtubeTrailer.url }}</dd>
+      <hr />
+      <dt >{{ 'movie.actors'| translate }}</dt>
+      <dd class="caption" *ngFor="let actor of selectedMovie1.actors">
+        <p-image src="{{ actor.photo }}" />
+        <p>{{ actor.name }}</p>
+      </dd>
+    </dl>
+  </p-card>
+
+  </div>
+  <p-dialog
+  header="{{ 'movie.create'| translate }}"
+  [style]="{ width: '40vw' }"
+  [(visible)]="visible">
+  <app-movie-create></app-movie-create>
+  
+</p-dialog>
+
+<p-dialog
+header="{{ 'movie.associateActor'| translate }}"
+[style]="{ width: '60vw', height:'60vw' }"
+[(visible)]="visiblex">
+<app-asociarActor-Pelicula [selectedMovie]="movieAsociar"></app-asociarActor-Pelicula>
+
+</p-dialog>

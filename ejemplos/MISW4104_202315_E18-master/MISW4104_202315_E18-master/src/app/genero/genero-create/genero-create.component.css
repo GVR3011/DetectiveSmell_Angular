@@ -1,0 +1,38 @@
+
+img {
+    height: 50px;
+    width: 50;
+    max-width: 100px;
+   }
+.table{
+   margin: 1%;
+   border-collapse: collapse; 
+   font-family: "Comic Sans MS", "Comic Sans", cursive;
+   font-size: 16px;
+   
+    
+}
+button {
+
+    justify-content: right;
+    align-items: center;
+    height: 50px;
+}
+
+.menu{
+    background-color: #D1EDF1 ;
+}
+th{
+    text-align: center;
+}
+
+.div-table{
+    width: 100%;
+
+}
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }

@@ -1,0 +1,121 @@
+<form
+  [formGroup]="trailerForm"
+  (ngSubmit)="!trailerForm.invalid && createTrailer(trailerForm.value)"
+>
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="id">{{ "trailer.id" | translate }}</label>
+    <input
+      id="id"
+      formControlName="id"
+      type="text"
+      pInputText
+      placeholder="{{ 'trailer.id' | translate }}"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        trailerForm.get('id')!.hasError('required') &&
+        trailerForm.get('id')!.touched
+      "
+    >
+    {{ "trailer.idRequired" | translate }}
+    </div>
+    <div *ngIf="trailerForm.get('id')!.hasError('minlength')">
+      {{ "trailer.must32Digits" | translate }}
+    </div>
+    <label for="name">{{ "trailer.name" | translate }}</label>
+    <input
+      id="name"
+      formControlName="name"
+      type="text"
+      pInputText
+      placeholder="{{ 'trailer.name' | translate }}"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        trailerForm.get('name')!.hasError('required') &&
+        trailerForm.get('name')!.touched
+      "
+    >
+    {{ 'trailer.nameRequired' | translate }}
+    </div>
+    <div *ngIf="trailerForm.get('name')!.hasError('minlength')">
+      {{ 'trailer.must2Digits' | translate }}
+    </div>
+    <label for="duration">{{ 'trailer.duration' | translate }}</label>
+    <input
+      id="duration"
+      formControlName="duration"
+      type="number"
+      pInputText
+      placeholder="{{ 'trailer.duration' | translate }}"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        trailerForm.get('duration')!.hasError('required') &&
+        trailerForm.get('duration')!.touched
+      "
+    >
+    {{ 'trailer.durationRequired' | translate }}
+    </div>
+    <label for="channel">{{ 'trailer.chanel' | translate }}</label>
+    <input
+      id="channel"
+      formControlName="channel"
+      type="text"
+      pInputText
+      placeholder="{{ 'trailer.chanel' | translate }}"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        trailerForm.get('channel')!.hasError('required') &&
+        trailerForm.get('channel')!.touched
+      "
+    >
+    {{ 'trailer.chanelRequired' | translate }}
+    </div>
+    <div *ngIf="trailerForm.get('channel')!.hasError('minlength')">
+      {{ "trailer.must2Digits" | translate }}
+    </div>
+    <label for="url">{{ "trailer.url" | translate }}</label>
+    <input
+      id="url"
+      formControlName="url"
+      type="text"
+      pInputText
+      placeholder="{{ 'trailer.url' | translate }}"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        trailerForm.get('url')!.hasError('required') &&
+        trailerForm.get('url')!.touched
+      "
+    >
+    {{ "trailer.urlRequired" | translate }}
+    </div>
+    <div *ngIf="trailerForm.get('url')!.hasError('minlength')">
+      {{ "trailer.must2Digits" | translate }}
+    </div>
+  </div>
+  <div>
+
+    <button
+      type="button"
+      (click)="cancelCreation()"
+      class="btn btn-danger ml-3"
+    >
+    {{ "primeng.cancel" | translate }}
+    </button>
+    <button
+    type="submit"
+    [disabled]="!trailerForm.valid"
+    class="btn btn-primary"
+  >
+  {{ "primeng.save" | translate }}
+  </button>
+  </div>
+</form>

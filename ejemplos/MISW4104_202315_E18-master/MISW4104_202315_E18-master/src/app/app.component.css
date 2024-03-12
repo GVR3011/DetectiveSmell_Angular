@@ -1,0 +1,121 @@
+.title{
+    text-align: center;
+    font-size: 14;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;;
+    padding-top: 10px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+li {
+    display: inline;
+    float: left;
+    background-color: white;
+  }
+a {
+    display: block;
+    padding: 8px;
+    background-color: #D1EDF1;
+
+  }
+img{
+    width: 100px;
+    padding-top: 10px;
+}
+
+.menu{
+    background-color: #b8e6ec ;
+}
+.button_menu{
+    background-color: white;
+    width: 105px;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    text-decoration-color: black;
+}
+.button_sup{
+    background-color: #D1EDF1;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    border: 1px;
+    border-color: #122c30 ;
+    color: black;
+
+    
+}
+.div_menu{
+    height: 50px;
+}
+
+.btn-float-right {
+    float: right;
+}
+
+th{
+    text-align: center;
+}
+
+.div-title{
+    width: 750px;
+}
+
+.div-img{
+    width: 100px;
+}
+.div-boton{
+    width: 40px;
+}
+
+:host ::ng-deep .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active {
+    background-color: #d90096;
+    border: 1px solid #d600d9;
+  }
+
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+ol, ul {
+    padding-left: 2rem;
+}
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+ol, ul {
+    padding-left: 2rem;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+:host ::ng-deep .p-tabmenu .p-tabmenu-nav {
+    background: #b8e6ec;
+    border: 1px solid #dee2e6;
+    border-width: 0 0 2px 0;
+}
+
+:host ::ng-deep  .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+    border: solid #dee2e6;
+    border-width: 0 0 2px 0;
+    border-color: transparent transparent #dee2e6 transparent;
+    background: #ffffff;
+    color: rgb(4, 54, 97);
+    
+    font-weight: 700;
+    transition: box-shadow 0.2s;
+    margin: 0 0 -2px 0;
+    text-decoration-color: black;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    width: 127px;
+    height: 10;
+    display: block;
+    padding: 8px;
+    background-color: #D1EDF1;
+    list-style-type: none;
+    text-decoration: none;
+
+}

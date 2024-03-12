@@ -1,75 +1,49 @@
-import * as ts from "typescript";
 import * as fs from "fs";
-
-// Función para contar los métodos en un nodo TypeScript
-function countMethods(node: ts.Node): number {
-    let methodCount = 0;
-
-    function visit(node: ts.Node) {
-        if (ts.isMethodDeclaration(node)) {
-            methodCount++;
-        }
-        ts.forEachChild(node, visit);
-    }
-
-    visit(node);
-
-    return methodCount;
-}
-
-// Función para contar las líneas de código en un nodo TypeScript
-function countLinesOfCode(node: ts.Node): number {
-    const sourceText = node.getSourceFile().getFullText();
-    const lines = sourceText.split("\n");
-    return lines.length;
-}
+import * as path from "path";
 
 // Directorio del proyecto
-const projectDirectory = "./ejemplos/architecture";
+const projectDirectory = "./ejemplos/MISW4104_202315_E18-master";
 
-// Array para almacenar la información de los archivos
-const fileInfo: { filename: string, methodCount: number, linesOfCode: number }[] = [];
+// Objeto para almacenar la estructura de carpetas y sus archivos
+const folderStructure: { [folderName: string]: string[] } = {};
+
+// Array para almacenar los mensajes de error
+const errors: string[] = [];
 
 // Función para leer todos los archivos TypeScript en un directorio y sus subdirectorios
-function readProject(directory: string): string[] {
-    let files: string[] = [];
-
+function readProject(directory: string, parentFolder: string = ""): void {
     fs.readdirSync(directory).forEach(file => {
-        const filePath = `${directory}/${file}`;
+        const filePath = path.join(directory, file);
         const stats = fs.statSync(filePath);
 
         if (stats.isDirectory()) {
             // Si es un directorio, leer sus archivos recursivamente
-            files = files.concat(readProject(filePath));
+            readProject(filePath, path.join(parentFolder, file));
         } else if (file.endsWith(".ts")) {
             // Si es un archivo TypeScript, agregarlo a la lista
-            files.push(filePath);
+            const folder = parentFolder || "/";
+            if (!folderStructure[folder]) {
+                folderStructure[folder] = [];
+            }
+            folderStructure[folder].push(filePath);
         }
     });
-
-    return files;
 }
 
-// Obtener la lista de archivos TypeScript del proyecto
-const files = readProject(projectDirectory);
+// Obtener la lista de archivos TypeScript del proyecto y construir la estructura de carpetas
+readProject(projectDirectory);
 
-// Procesar cada archivo individualmente
-files.forEach(filename => {
-    const code = fs.readFileSync(filename, "utf-8");
-
-    const sourceFile = ts.createSourceFile(
-        filename, code, ts.ScriptTarget.Latest
-    );
-
-    // Contar los métodos en el archivo
-    const methodCount = countMethods(sourceFile);
-
-    // Contar las líneas de código en el archivo
-    const linesOfCode = countLinesOfCode(sourceFile);
-
-    // Almacenar la información del archivo en el array
-    fileInfo.push({ filename, methodCount, linesOfCode });
-});
+// Verificar si los nombres de los archivos contienen el nombre de la carpeta
+for (const folderName in folderStructure) {
+    const files = folderStructure[folderName];
+    const folderBaseName = path.basename(folderName);
+    for (const filename of files) {
+        const fileBaseName = path.basename(filename, path.extname(filename));
+        if (!fileBaseName.includes(folderBaseName)) {
+            errors.push(`El archivo ${filename} no contiene el nombre de la carpeta ${folderBaseName}`);
+        }
+    }
+}
 
 // Generar el reporte HTML
 const htmlContent = `
@@ -97,21 +71,20 @@ const htmlContent = `
     </style>
 </head>
 <body>
-    <h2>Métodos y líneas </h2>
-    <table>
-        <tr>
-            <th>Nombre archivo</th>
-            <th>Métodos en cada archivo</th>
-            <th>Líneas de cada archivo</th>
-        </tr>
-        ${fileInfo.map(info => `
-            <tr>
-                <td>${info.filename}</td>
-                <td>${info.methodCount}</td>
-                <td>${info.linesOfCode}</td>
-            </tr>
-        `).join('')}
-    </table>
+    <h2>Archivos en cada carpeta</h2>
+    ${Object.entries(folderStructure).map(([folderName, files]) => `
+        <h3>${folderName}</h3>
+        <ul>
+            ${files.map(file => `<li>${file}</li>`).join('')}
+        </ul>
+    `).join('')}
+    
+    ${errors.length > 0 ? `
+    <h2>Errores</h2>
+    <ul>
+        ${errors.map(error => `<li>${error}</li>`).join('')}
+    </ul>
+    ` : ''}
 </body>
 </html>
 `;

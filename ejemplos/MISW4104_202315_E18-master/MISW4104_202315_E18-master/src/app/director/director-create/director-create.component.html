@@ -1,0 +1,141 @@
+<form
+  [formGroup]="directorForm"
+  (ngSubmit)="!directorForm.invalid && createDirector(directorForm.value)"
+>
+  <div class="form-group mx-sm-4 mb-2">
+    <label   for="id">ID</label>
+    <input
+      id="id"
+      formControlName="id"
+      type="text"
+      pInputText
+      placeholder="ID"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        directorForm.get('id')!.hasError('required') &&
+        directorForm.get('id')!.touched
+      "
+    >
+    {{ "director.idRequired" | translate }}
+    </div>
+    <div   *ngIf="directorForm.get('id')!.hasError('minlength')">
+      {{ "director.must32Digits" | translate }}
+    </div>
+    <label    for="name">{{ "director.name" | translate }}</label>
+    <input 
+      id="name"
+      formControlName="name"
+      type="text"
+      pInputText
+      placeholder="Nombre del director"
+      class="form-control"
+    />
+    <div  
+      *ngIf="
+        directorForm.get('name')!.hasError('required') &&
+        directorForm.get('name')!.touched
+      "
+    >
+    {{ "director.nameRequired" | translate }}
+    </div>
+    <div   *ngIf="directorForm.get('name')!.hasError('minlength')">
+      {{ "director.must2digits" | translate }}
+    </div>
+
+    <label   for="photo">{{ "director.photo" | translate }}</label>
+    <input  
+      id="photo"
+      formControlName="photo"
+      type="text"
+      pInputText
+      placeholder="URL with Author's image"
+      class="form-control"
+    />
+    <div 
+      *ngIf="
+        directorForm.get('photo')!.hasError('required') &&
+        directorForm.get('photo')!.touched
+      "
+    >
+    {{ "director.posterRequired" | translate }}
+    </div>
+
+    <label   for="nationality">{{ "director.nacionality" | translate }}</label>
+    <input 
+      id="nationality"
+      formControlName="nationality"
+      type="text"
+      pInputText
+      placeholder="Ingrese la Nacionalidad"
+      class="form-control"
+    />
+    <div  
+      *ngIf="
+        directorForm.get('nationality')!.hasError('required') &&
+        directorForm.get('nationality')!.touched
+      "
+    >
+    {{ "director.nacionalityRequired" | translate }}
+    </div>
+    <div    *ngIf="directorForm.get('nationality')!.hasError('minlength')">
+      {{ "director.must2Digits" | translate }}
+    </div>
+    <label for="birthDate">{{ "director.birthDate" | translate }}</label>
+    <input  
+      id="birthDate"
+      formControlName="birthDate"
+      type="text"
+      pInputText
+      placeholder="birthDate"
+      class="form-control"
+    />
+    <div  
+      *ngIf="
+        directorForm.get('birthDate')!.hasError('required') &&
+        directorForm.get('birthDate')!.touched
+      "
+    >
+    {{ "director.birthDateRequired" | translate }}
+    </div>
+    <div   *ngIf="directorForm.get('birthDate')!.hasError('minlength')">
+      {{ "director.must3Digits" | translate }}
+    </div>
+    
+    <label  for="biography">{{ "director.biography" | translate }}</label>
+    <input 
+      id="biography"
+      formControlName="biography"
+      type="string"
+      pInputText
+      placeholder="biography hasta 200 caracteres "
+      class="form-control"
+    />
+    <div  
+      *ngIf="
+        directorForm.get('biography')!.hasError('required') &&
+        directorForm.get('biography')!.touched
+      "
+    >
+    {{ "director.biographyRequired" | translate }}
+    </div>
+    <div   *ngIf="directorForm.get('biography')!.hasError('maxlength')">
+      {{ "director.biographyContain" | translate }}
+    </div>
+
+ 
+  </div>
+  <div>
+    <button  
+      type="button"
+      (click)="cancelCreation()"
+      class="btn btn-danger ml-3"
+    >
+    {{ "director.cancel" | translate }}
+    </button>
+    <button   type="submit" [disabled]="!directorForm.valid" class="btn btn-primary">
+      {{ "director.save" | translate }}
+    </button>
+  </div>
+</form>

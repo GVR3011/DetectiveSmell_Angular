@@ -1,0 +1,54 @@
+<form
+  [formGroup]="actorForm"
+  (ngSubmit)="!actorForm.invalid && createActorAsociacionPelicula(actorForm.value)"
+>
+  <div class="form-group mx-sm-4 mb-2">
+    <div *ngIf="selectedActor">
+      <dt>Actor</dt>
+      <dd>{{ selectedActor.name }}</dd>
+      <hr />
+      <label for="movies">Pelicula</label>
+      <p-dropdown
+        ariaLabel="Seleccione Actor"
+        id="movies"
+        class="form-control"
+        formControlName="movies"
+        placeholder="Seleccione Pelicula"
+        [options]="movies"
+      >
+      <ng-template let-movie pTemplate="selectedItem">
+        <div *ngIf="movie">
+        {{ movie.title}}
+        </div>
+      </ng-template>
+        <ng-template let-item pTemplate="item">
+          <div *ngIf="item">
+          {{ item.title}}
+          </div>
+        </ng-template>
+      </p-dropdown>
+      <div
+        *ngIf="
+          actorForm.get('movies')!.hasError('required') &&
+          actorForm.get('movies')!.touched
+        "
+      >
+        Pelicula es requerido
+      </div>
+      <button
+        type="button"
+        (click)="cancelCreation()"
+        class="btn btn-danger ml-3"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        [disabled]="!actorForm.valid"
+        class="btn btn-primary"
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

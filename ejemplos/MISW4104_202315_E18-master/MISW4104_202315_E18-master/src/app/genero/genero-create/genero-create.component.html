@@ -1,0 +1,63 @@
+<form
+  [formGroup]="generoForm"
+  (ngSubmit)="!generoForm.invalid && createGenero(generoForm.value)"
+>
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="id"> {{ "genre.id" | translate }}</label>
+    <input
+      id="id"
+      formControlName="id"
+      type="text"
+      pInputText
+      placeholder="ID"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        generoForm.get('id')!.hasError('required') &&
+        generoForm.get('id')!.touched
+      "
+    >
+    {{ "genre.idRequired" | translate }}
+    </div>
+    <div  *ngIf="generoForm.get('id')!.hasError('minlength')">
+      {{ "genre.idRequired" | translate }} {{ "genre.size" | translate }}: 32
+    </div>
+    <label   for="type">{{ "genre.type" | translate }}</label>
+    <input
+      id="type"
+      formControlName="type"
+      type="text"
+      pInputText
+      class="form-control"
+    />
+    <div 
+      *ngIf="
+        generoForm.get('type')!.hasError('required') &&
+        generoForm.get('type')!.touched
+      "
+    >
+    {{ "genre.typeRequired" | translate }}
+    </div>
+    <div   *ngIf="generoForm.get('type')!.hasError('minlength')">
+      {{ "genre.typeRequired" | translate }} {{ "genre.size" | translate }}: 2
+    </div>
+  </div>
+  <div>
+
+    <button 
+      type="button"
+      (click)="cancelCreation()"
+      class="btn btn-danger ml-3"
+    >
+    {{ 'primeng.cancel'| translate }}
+    </button>
+    <button  
+    type="submit"
+    [disabled]="!generoForm.valid"
+    class="btn btn-primary"
+  >
+  {{ 'primeng.save'| translate }}
+  </button>
+  </div>
+</form>

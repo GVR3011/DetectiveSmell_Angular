@@ -1,0 +1,142 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "MISW4104_202315_E18": {
+      "i18n": {
+        "sourceLocale": "es",
+        "locales": {
+          "en": {
+            "translation": "src/locale/messages.en.xlf",
+            "baseHref": ""
+          }
+        }
+      },
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/MISW4104_202315_E18",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              
+              { 
+                "input":"src/lara-light-blue.css",
+                "bundleName": "lara-light-blue",
+                "inject":false
+              },
+              {
+                "input":"src/lara-dark-blue.css",
+                "bundleName": "lara-dark-blue",
+                "inject":false
+              },
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "./node_modules/primeicons/primeicons.css"
+   
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "en": {
+              "localize": ["en"],
+              "outputPath": "dist/MISW4104_202315_E18-es/",
+              "i18nMissingTranslation": "error"
+           },
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "4mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "en": {
+              "browserTarget": "MISW4104_202315_E18:build:en"
+            },
+            "production": {
+              "browserTarget": "MISW4104_202315_E18:build:production"
+            },
+            "development": {
+              "browserTarget": "MISW4104_202315_E18:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n-": {
+          "builder": "@angular-devkit/build-angular:extract-i18n-",
+          "options": {
+            "browserTarget": "MISW4104_202315_E18:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
+}
